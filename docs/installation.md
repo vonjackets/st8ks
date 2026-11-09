@@ -93,6 +93,25 @@ See [Development](development.md#requirements) for the tools, then run:
 make build
 ```
 
+### With Nix
+
+`flake.nix` builds st8ks without Go or Node.js on your system:
+
+```sh
+nix build
+```
+
+On macOS this writes `result/Applications/st8ks.app`. Files in the Nix store are read-only, so make the copy writable:
+
+```sh
+cp -R result/Applications/st8ks.app /Applications/
+chmod -R u+w /Applications/st8ks.app
+```
+
+On Linux, `result/bin/st8ks` is the app and `result/share` has the desktop entry and the icon. `nix develop` opens a shell with Go, Node.js and the Wails CLI for `make dev`.
+
+When `go.mod` or `go.sum` changes, run `hack/update-vendor-hash.sh` to update `vendorHash` in `flake.nix`.
+
 ## Next step
 
 [Getting started](getting-started.md) shows the main screens.
